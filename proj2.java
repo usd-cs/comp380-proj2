@@ -49,6 +49,8 @@ public class proj2{
                 
                     System.out.println("Enter a file name to save the testing/deploying results:");
                     String resultsFile = kb.nextLine();
+
+                    hopfieldTest.test(testingDataFile, resultsFile);
                     
                     System.out.println("Do you want to run the program again?(Y/N)");
                     String rerun = kb.nextLine();
