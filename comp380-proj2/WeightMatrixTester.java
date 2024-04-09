@@ -7,7 +7,7 @@ public class WeightMatrixTester {
 
     public static void main(String[] args) {
         // Define the directory and file path to read input data from
-        String directory = "C:\Users\tonyr\OneDrive\Desktop\COMP380\comp380-proj2";
+        String directory = "";
         String filePath = "sample-data.txt";
 
         try {
