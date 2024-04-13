@@ -19,18 +19,15 @@ public class HopfieldNet {
         int[][][] storedPatterns;
         int[][] weights;
 
-        public Hopfield(int numDimensions, int capacity, 
-                        int[][][] storedPatterns,
-                        int[][] weights){
+        public Hopfield(int numDimensions, int capacity, int[][][] storedPatterns, int[][] weights) {
                         this.numDimensions = numDimensions;
                         this.capacity = capacity;
                         this.storedPatterns = storedPatterns;
-                        this.weights = weights;
-                        }
+                        this.weights = weights; }
     }
     public void train(String trainingDataFile, String weightSettingsFile) throws FileNotFoundException {
         // Passing file data into Hebb for training and initializing variables
-        FileHandler.InputData inputData = fileHandler.readInputData(trainingDataFile, fileHandler.trainPath);
+        FileHandler.InputData inputData = fileHandler.readInputData(fileHandler.trainPath, trainingDataFile);
         int numDimensions = inputData.numDimensions;
         int capacity = inputData.capacity;
         int numRows = (int)Math.sqrt(numDimensions);

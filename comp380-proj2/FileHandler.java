@@ -7,6 +7,7 @@ Description: This file is responsible for all File Handling Methods.
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.PrintWriter;
 
@@ -38,23 +39,26 @@ public class FileHandler {
         Scanner sc = new Scanner(trainDataPath);
     
         int numDimensions = sc.nextInt();
+        sc.nextLine(); // skip the text in parentheses after the int
         int capacity = sc.nextInt();
+        sc.nextLine(); // skip the text in parentheses after the int
         int numRows = (int)Math.sqrt(numDimensions);
-        sc.nextLine(); // Empty Line after dimensions/capacity
     
         int[][][] dataSet = new int[capacity][numRows][numRows];
     
         for (int i = 0; i < capacity; i++) { // for each image vector
+            sc.nextLine(); // skip the empty line
             int[][] imageVector = new int[numRows][numRows];
     
             for (int j = 0; j < numRows; j++) { // for each row in the image vector
                 if (!sc.hasNextLine()) break;
-                String line = sc.nextLine().trim();
+                String line = sc.nextLine();
                 int[] row = new int[numRows];
+                char[] cleanedArr = Arrays.copyOfRange(line.toCharArray(), 0, 10);
                 
                 // Using binary since Hebb net training
                 int k = 0; // Index for each cell in the row
-                for (char cell : line.toCharArray()) {
+                for (char cell : cleanedArr) {
                     if (cell == 'O') {
                         row[k++] = 1;
                     } else if (cell == ' ') {
