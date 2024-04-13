@@ -17,23 +17,23 @@ public class proj2{
         while(run){
             System.out.println("Enter 1 to train or 2 to test your Hopfield Net:");
             int choice = kb.nextInt();
+            kb.nextLine();
 
             switch(choice){
-
                 case 1: // Train
                     System.out.println("Enter the training data file name (add .txt extension):");
-                    kb.nextLine();
+                    // kb.nextLine();
                     String trainingDataFile = kb.nextLine();
-
+                    System.out.println("Training data file name entered: " + trainingDataFile);
+                    
                     System.out.println("Enter the file to save your weights:");
-                    kb.nextLine();
                     String weightSettingsFile = kb.nextLine();
 
                     HopfieldNet hopfieldTrain = new HopfieldNet();
+                    System.out.println("Weight settings file name entered: " + weightSettingsFile);
                     hopfieldTrain.train(trainingDataFile, weightSettingsFile);
-
+                    
                     System.out.println("Do you want to run the program again?(Y/N)");
-                    kb.nextLine();
                     String rerunProgram = kb.nextLine();
                     if (!rerunProgram.equalsIgnoreCase("Y")) {
                         run = false;

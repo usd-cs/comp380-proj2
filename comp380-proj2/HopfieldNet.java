@@ -58,8 +58,12 @@ public class HopfieldNet {
         // Save Parameters, pattrerns, and weights to file.
         fileHandler.saveWeights(weightSettingsFile, hopNet);
     }
+
+    
     public void test(String testingDataFile, String resultsFile){
         // TODO: Implement, shouldn't be too bad
+        // FileHandler.InputData inputData = fileHandler.readInputData(testingDataFile, fileHandler.resultPath);
+
     }
 
     public int[][] transposeMatrix(int[][] matrix) {
@@ -79,7 +83,6 @@ public class HopfieldNet {
 
 
     public int[][] multiplyMatrices(int[][] matrixA, int[][] matrixB) {
-        // TODO: OPTIMIZE, vectors might be better tbh
         int[][] result = new int[matrixA.length][matrixB[0].length];
     
         for (int i = 0; i < matrixA.length; i++) {
