@@ -160,7 +160,52 @@ public final class FileHandler {
     public static void saveResults(String resultsFileName, HopfieldNet.Hopfield net, HopfieldNet.Hopfield data, int[] results) {
         // The results array is structured: index = index of data pattern, value = stored pattern it matches to
         // TODO: Save the results from the testing to a file (probably needs another param)
+        if (net == null || data == null || results == null) {
+            System.err.println("Null data cannot be processed.");
+            return;
+        }
+    
+        File resultsFile = new File(resultPath + resultsFileName);
+        if (!resultsFile.getParentFile().exists()) {
+            resultsFile.getParentFile().mkdirs(); // Ensure the directory exists
+        }
+    
+        try (PrintWriter writer = new PrintWriter(resultsFile, "UTF-8")) {
+            writer.println("Test Results:");
+    
+            for (int i = 0; i < results.length; i++) {
+                if (i >= data.storedPatterns.length) {
+                    writer.println("No more test data available for result index: " + (i + 1));
+                    break;
+                }
+    
+                writer.println("Input testing image:");
+                printMatrix(writer, data.storedPatterns[i]); // Assuming storedPatterns in 'data' is used for input patterns
+    
+                writer.println("The associated stored image:");
+                if (results[i] < net.storedPatterns.length) {
+                    printMatrix(writer, net.storedPatterns[results[i]]); // Print the associated stored pattern
+                } else {
+                    writer.println("No matching stored pattern found.");
+                }
+    
+                writer.println(); // Add an extra line for separation between entries
+            }
+        } catch (Exception e) {
+            System.err.println("Error writing to results file: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
+    
+    private static void printMatrix(PrintWriter writer, int[][] matrix) {
+        for (int[] row : matrix) {
+            for (int cell : row) {
+                writer.print((cell == 1 ? "O" : " ") + " "); // Print O for 1 and space for 0
+            }
+            writer.println();
+        }
+    }
+        
         
 
 }
