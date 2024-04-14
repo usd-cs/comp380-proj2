@@ -138,6 +138,7 @@ public final class FileHandler {
                     storedPatterns[i][j][k] = Integer.parseInt(line[k]);
                 }
             }
+            scanner.nextLine();
         }
     
         scanner.nextLine(); // Skip to the weight matrix header

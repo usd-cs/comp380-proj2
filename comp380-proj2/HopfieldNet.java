@@ -95,9 +95,9 @@ public class HopfieldNet {
         int[] results = new int[inputData.dataSet.length];
         for (int k = 0; k < inputData.dataSet.length; k++) {
             int[][] pattern = inputData.dataSet[k]; // For every pattern in dataset
-            int[][] y = deepCopy(pattern);
             int matchedPattern = -1;
             do {
+                int[][] y = deepCopy(pattern);
                 for (int i = 0; i < pattern.length; i++) { // For every row in pattern
                     int ySize = numRows;
                     int[] alreadyChosen = new int[ySize];
@@ -108,7 +108,7 @@ public class HopfieldNet {
                         // Calculate y_in for the unit
                         int sum = 0;
                         for (int j = 0; j < numRows; j++) {
-                            sum += (weights[i][j] * y[i][j]);
+                            sum += (weights[i][chosenY] * y[i][j]);
                         }
                         int yin = pattern[i][chosenY] + sum; // Add x of i and the sum
                         // Activation function
@@ -121,6 +121,7 @@ public class HopfieldNet {
                         chosenY = randomNotInList(alreadyChosen, ySize);
                     }
                 }
+                pattern = y;
                 matchedPattern = checkForConvergence(storedPatterns, y);
             } while (matchedPattern == -1);
             // Found a match, put in the results
@@ -168,7 +169,7 @@ public class HopfieldNet {
         // Generate random numbers until a unique one is found
         int randomNum;
         do {
-            randomNum = random.nextInt(maxNum + 1);
+            randomNum = random.nextInt(maxNum);
         } while (alreadyChosen[randomNum] == 1);
 
         return randomNum;
