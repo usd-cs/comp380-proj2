@@ -32,16 +32,14 @@ public class proj2{
                     HopfieldNet hopfieldTrain = new HopfieldNet();
                     System.out.println("Weight settings file name entered: " + weightSettingsFile);
                     hopfieldTrain.train(trainingDataFile, weightSettingsFile);
-                    
-                    System.out.println("Do you want to run the program again?(Y/N)");
-                    String rerunProgram = kb.nextLine();
-                    if (!rerunProgram.equalsIgnoreCase("Y")) {
-                        run = false;
-                    }
                     break;
 
                 case 2: // Test
                     HopfieldNet hopfieldTest = new HopfieldNet();
+
+                    System.out.println("Enter the trained weight settings data file name:");
+                    String weightSettingsFileTest = kb.nextLine();
+                    HopfieldNet.Hopfield weightsAndPatterns = FileHandler.loadWeights(weightSettingsFileTest);
 
                     System.out.println("Enter the testing data file name:");
                     // kb.nextLine(); // Consume newline left-over
@@ -50,20 +48,19 @@ public class proj2{
                     System.out.println("Enter a file name to save the testing/deploying results:");
                     String resultsFile = kb.nextLine();
 
-                    hopfieldTest.test(testingDataFile, resultsFile);
-                    
-                    System.out.println("Do you want to run the program again?(Y/N)");
-                    String rerun = kb.nextLine();
-                    if (!rerun.equalsIgnoreCase("Y")) {
-                        run = false;
-                    }
+                    hopfieldTest.test(testingDataFile, resultsFile, weightsAndPatterns);
                     break;
-
                 default:
                     System.out.println("Invalid input. Please enter 1 or 2.");
                     break;
 
             }
+            System.out.println("Do you want to run the program again?(Y/N)");
+            String rerun = kb.nextLine();
+            if (!rerun.equalsIgnoreCase("Y")) {
+                run = false;
+            }
+            break;
         }
         kb.close();
     }

@@ -11,11 +11,11 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.io.PrintWriter;
 
-public class FileHandler {
-    String trainPath = "train/";
-    String testPath = "test/";
-    String weightPath = "weights/";
-    String resultPath = "results/";
+public final class FileHandler {
+    public static final String trainPath = "train/";
+    public static final String testPath = "test/";
+    public static final String weightPath = "weights/";
+    public static final String resultPath = "results/";
     
     static class InputData {
         // Stores information for Net to read.
@@ -31,7 +31,7 @@ public class FileHandler {
         }
     }
 
-    public InputData readInputData(String directory, String filePath) throws FileNotFoundException {
+    public static InputData readInputData(String directory, String filePath) throws FileNotFoundException {
         /* Can use this method for training and test data
          * Went for modularity this time around.
          */
@@ -74,7 +74,7 @@ public class FileHandler {
         return new InputData(numDimensions, capacity, dataSet);
     }
     
-    public void saveWeights(String weightSettingsFile, HopfieldNet.Hopfield hopNet) {
+    public static void saveWeights(String weightSettingsFile, HopfieldNet.Hopfield hopNet) {
         try {
             String path = weightPath + weightSettingsFile;
             PrintWriter writer = new PrintWriter(path, "UTF-8");
@@ -111,8 +111,21 @@ public class FileHandler {
     }
 
         
-    public void loadWeights(String weightSettingsFile){
-        // TODO: Call inside test Method
+    public static HopfieldNet.Hopfield loadWeights(String weightSettingsFile){
+        // TODO: Open the file and read the saved stuff into the variables
+        // set the stored patterns and weights and return the object
+        int numRows = 5;
+        int capacity = 5;
+        int[][][] storedPatterns = new int[capacity][numRows][numRows];
+        int [][] weights = new int[numRows][numRows];
+        HopfieldNet.Hopfield netFromFile = new HopfieldNet.Hopfield(storedPatterns, weights);
+        return netFromFile;
+    }
+
+    public static void saveResults(String resultsFileName, HopfieldNet.Hopfield net, HopfieldNet.Hopfield data,
+                                   int[] results) {
+        // The results array is structured: index = index of data pattern, value = stored pattern it matches to
+        // TODO: Save the results from the testing to a file (probably needs another param)
     }
 
 }
