@@ -111,21 +111,56 @@ public final class FileHandler {
     }
 
         
-    public static HopfieldNet.Hopfield loadWeights(String weightSettingsFile){
+
+
+    public static HopfieldNet.Hopfield loadWeights(String weightSettingsFile) {
         // TODO: Open the file and read the saved stuff into the variables
         // set the stored patterns and weights and return the object
-        int numRows = 5;
-        int capacity = 5;
+        Scanner scanner;
+        try {
+            File file = new File(weightPath + weightSettingsFile);
+            scanner = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + weightSettingsFile);
+            return null; // Exit the method if file not found
+        }
+    
+        int numDimensions = Integer.parseInt(scanner.nextLine().split(": ")[1]);
+        int capacity = Integer.parseInt(scanner.nextLine().split(": ")[1]);
+        int numRows = (int)Math.sqrt(numDimensions);
         int[][][] storedPatterns = new int[capacity][numRows][numRows];
-        int [][] weights = new int[numRows][numRows];
-        HopfieldNet.Hopfield netFromFile = new HopfieldNet.Hopfield(storedPatterns, weights);
+    
+        for (int i = 0; i < capacity; i++) {
+            scanner.nextLine(); // Skip the pattern header
+            for (int j = 0; j < numRows; j++) {
+                String[] line = scanner.nextLine().trim().split(" ");
+                for (int k = 0; k < numRows; k++) {
+                    storedPatterns[i][j][k] = Integer.parseInt(line[k]);
+                }
+            }
+        }
+    
+        scanner.nextLine(); // Skip to the weight matrix header
+        int[][] weights = new int[numRows][numRows];
+        for (int i = 0; i < numRows; i++) {
+            String[] line = scanner.nextLine().trim().split(" ");
+            for (int j = 0; j < numRows; j++) {
+                weights[i][j] = Integer.parseInt(line[j]);
+            }
+        }
+    
+        HopfieldNet.Hopfield netFromFile = new HopfieldNet.Hopfield(numDimensions, capacity, storedPatterns, weights);
+        scanner.close();
         return netFromFile;
     }
+        
 
-    public static void saveResults(String resultsFileName, HopfieldNet.Hopfield net, HopfieldNet.Hopfield data,
-                                   int[] results) {
+
+   
+    public static void saveResults(String resultsFileName, HopfieldNet.Hopfield net, HopfieldNet.Hopfield data, int[] results) {
         // The results array is structured: index = index of data pattern, value = stored pattern it matches to
         // TODO: Save the results from the testing to a file (probably needs another param)
     }
+        
 
 }
