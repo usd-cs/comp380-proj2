@@ -22,7 +22,6 @@ public class proj2{
             switch(choice){
                 case 1: // Train
                     System.out.println("Enter the training data file name (add .txt extension):");
-                    // kb.nextLine();
                     String trainingDataFile = kb.nextLine();
                     System.out.println("Training data file name entered: " + trainingDataFile);
                     
@@ -42,7 +41,6 @@ public class proj2{
                     HopfieldNet.Hopfield weightsAndPatterns = FileHandler.loadWeights(weightSettingsFileTest);
 
                     System.out.println("Enter the testing data file name:");
-                    // kb.nextLine(); // Consume newline left-over
                     String testingDataFile = kb.nextLine();            
                 
                     System.out.println("Enter a file name to save the testing/deploying results:");
@@ -60,7 +58,6 @@ public class proj2{
             if (!rerun.equalsIgnoreCase("Y")) {
                 run = false;
             }
-            // break;
         }
         kb.close();
     }
