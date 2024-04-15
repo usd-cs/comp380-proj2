@@ -60,7 +60,7 @@ public class proj2{
             if (!rerun.equalsIgnoreCase("Y")) {
                 run = false;
             }
-            break;
+            // break;
         }
         kb.close();
     }
