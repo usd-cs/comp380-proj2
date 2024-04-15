@@ -114,7 +114,6 @@ public final class FileHandler {
 
 
     public static HopfieldNet.Hopfield loadWeights(String weightSettingsFile) {
-        // TODO: Open the file and read the saved stuff into the variables
         // set the stored patterns and weights and return the object
         Scanner scanner;
         try {
@@ -160,7 +159,6 @@ public final class FileHandler {
    
     public static void saveResults(String resultsFileName, HopfieldNet.Hopfield net, HopfieldNet.Hopfield data, int[] results) {
         // The results array is structured: index = index of data pattern, value = stored pattern it matches to
-        // TODO: Save the results from the testing to a file (probably needs another param)
         if (net == null || data == null || results == null) {
             System.err.println("Null data cannot be processed.");
             return;
@@ -184,7 +182,7 @@ public final class FileHandler {
                 printMatrix(writer, data.storedPatterns[i]); // Assuming storedPatterns in 'data' is used for input patterns
     
                 writer.println("The associated stored image:");
-                if (results[i] < net.storedPatterns.length) {
+                if (results[i] < net.storedPatterns.length && results[i] >= 0) {
                     printMatrix(writer, net.storedPatterns[results[i]]); // Print the associated stored pattern
                 } else {
                     writer.println("No matching stored pattern found.");

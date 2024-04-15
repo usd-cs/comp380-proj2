@@ -115,8 +115,12 @@ public class HopfieldNet {
                         }
                     }
                 }
-                pattern = y;
                 matchedPattern = checkForConvergence(storedPatterns, y);
+                if(matchedPattern == -1 && Arrays.deepEquals(pattern,y)) {
+                    matchedPattern = -2;
+                } else {
+                    pattern = y;
+                }
             } while (matchedPattern == -1);
             // Found a match, put in the results
             results[k] = matchedPattern;
