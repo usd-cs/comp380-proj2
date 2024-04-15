@@ -54,7 +54,7 @@ public final class FileHandler {
                 if (!sc.hasNextLine()) break;
                 String line = sc.nextLine();
                 int[] row = new int[numRows];
-                char[] cleanedArr = Arrays.copyOfRange(line.toCharArray(), 0, 10);
+                char[] cleanedArr = Arrays.copyOfRange(line.toCharArray(), 0, numRows);
                 
                 // Using binary since Hebb net training
                 int k = 0; // Index for each cell in the row

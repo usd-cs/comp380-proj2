@@ -1,0 +1,31 @@
+Dimension size: 9
+Number of Stored Patterns: 5
+Pattern 1:
+1 1 1 
+1 1 1 
+1 1 1 
+
+Pattern 2:
+1 0 1 
+0 1 0 
+1 0 1 
+
+Pattern 3:
+1 1 1 
+0 1 0 
+1 1 1 
+
+Pattern 4:
+0 1 0 
+1 1 1 
+0 1 0 
+
+Pattern 5:
+1 0 0 
+1 1 0 
+0 1 1 
+
+Weight Matrix:
+0 -1 9 
+-1 0 1 
+9 1 0 
