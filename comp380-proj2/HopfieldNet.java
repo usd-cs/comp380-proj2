@@ -108,7 +108,7 @@ public class HopfieldNet {
                         // Calculate y_in for the unit
                         int sum = 0;
                         for (int j = 0; j < numRows; j++) {
-                            sum += (weights[i][chosenY] * y[i][j]);
+                            sum += (weights[j][chosenY] * y[i][j]);
                         }
                         int yin = pattern[i][chosenY] + sum; // Add x of i and the sum
                         // Activation function
