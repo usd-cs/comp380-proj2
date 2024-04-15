@@ -61,7 +61,7 @@ public final class FileHandler {
                 for (char cell : cleanedArr) {
                     if (cell == 'O') {
                         row[k++] = 1;
-                    } else if (cell == ' ') {
+                    } else {
                         row[k++] = 0;
                     }
                 }

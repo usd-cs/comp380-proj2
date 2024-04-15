@@ -20,19 +20,16 @@ public class HopfieldNet {
         int numDimensions;
         int capacity;
         int[][][] storedPatterns;
+        int[][][] storedPatternsBipolar;
         int[][] weights;
 
         public Hopfield(int numDimensions, int capacity, int[][][] storedPatterns, int[][] weights) {
                         this.numDimensions = numDimensions;
                         this.capacity = capacity;
                         this.storedPatterns = storedPatterns;
+                        this.storedPatternsBipolar = convertToBipolar(storedPatterns);
                         this.weights = weights; }
 
-        public Hopfield(int[][][] storedPatterns, int[][] weights) {
-            this.numDimensions = -1;
-            this.capacity = -1;
-            this.storedPatterns = storedPatterns;
-            this.weights = weights; }
     }
     public void train(String trainingDataFile, String weightSettingsFile) throws FileNotFoundException {
         // Passing file data into Hebb for training and initializing variables
@@ -48,10 +45,11 @@ public class HopfieldNet {
         int capacity = inputData.capacity;
         int numRows = (int)Math.sqrt(numDimensions);
         int[][][] storedPatterns = inputData.dataSet;
+        int[][][] storedPatternsBipolar = convertToBipolar(storedPatterns);
         int [][] weights = new int[numRows][numRows];
 
         // Hebb Net learning
-        for (int[][] pattern : storedPatterns) {
+        for (int[][] pattern : storedPatternsBipolar) {
             int[][] transposedMatrix = transposeMatrix(pattern);
             // Wi = S^T * S
             int[][] multipliedMatrix = multiplyMatrices(transposedMatrix, pattern);
@@ -100,25 +98,21 @@ public class HopfieldNet {
                 int[][] y = deepCopy(pattern);
                 for (int i = 0; i < pattern.length; i++) { // For every row in pattern
                     int ySize = numRows;
-                    int[] alreadyChosen = new int[ySize];
                     // Choose random unit
-                    int chosenY = randomNotInList(alreadyChosen, ySize);
-                    while (chosenY != -1) { // while every index has not been chosen
-                        alreadyChosen[chosenY] = 1;
+                    int[] randomInds = genRandomIndArray(ySize);
+                    for(int unitIndex : randomInds) { // For every index in a randomized list
                         // Calculate y_in for the unit
                         int sum = 0;
                         for (int j = 0; j < numRows; j++) {
-                            sum += (weights[j][chosenY] * y[i][j]);
+                            sum += (weights[j][unitIndex] * y[i][j]);
                         }
-                        int yin = pattern[i][chosenY] + sum; // Add x of i and the sum
+                        int yin = pattern[i][unitIndex] + sum; // Add x of i and the sum
                         // Activation function
                         if (yin > THETA) {
-                            y[i][chosenY] = 1;
+                            y[i][unitIndex] = 1;
                         } else {
-                            y[i][chosenY] = 0;
+                            y[i][unitIndex] = 0;
                         }
-                        // Choose random unit
-                        chosenY = randomNotInList(alreadyChosen, ySize);
                     }
                 }
                 pattern = y;
@@ -150,29 +144,26 @@ public class HopfieldNet {
         return newArray;
     }
 
-    /*
-     * This function takes in the already chosen indexes and the max int.
-     * Returns a random integer from 0 to the max provided that has not already been chosen.
-     * Returns -1 if the list is already full of 1s
-     */
-    private int randomNotInList(int[] alreadyChosen, int maxNum) {
-        // Create a Random object
+    // Function to generate an array of random indexes
+    public static int[] genRandomIndArray(int size) {
+        int[] indexes = new int[size];
         Random random = new Random();
-        int sum = 0;
-        for(int num : alreadyChosen) {
-            sum += num;
-        }
-        if(sum == maxNum) {
-            return -1;
+
+        // Initialize the array with consecutive integers from 0 to size - 1
+        for (int i = 0; i < size; i++) {
+            indexes[i] = i;
         }
 
-        // Generate random numbers until a unique one is found
-        int randomNum;
-        do {
-            randomNum = random.nextInt(maxNum);
-        } while (alreadyChosen[randomNum] == 1);
+        // Shuffle the array
+        for (int i = size - 1; i > 0; i--) {
+            int j = random.nextInt(i + 1);
+            // Swap elements
+            int temp = indexes[i];
+            indexes[i] = indexes[j];
+            indexes[j] = temp;
+        }
 
-        return randomNum;
+        return indexes;
     }
 
     /*
@@ -216,5 +207,25 @@ public class HopfieldNet {
         }
     
         return result;
+    }
+
+    // Function to convert binary to bipolar
+    public static int[][][] convertToBipolar(int[][][] binaryArrays) {
+        int[][][] bipolarArrays = new int[binaryArrays.length][][];
+        for (int i = 0; i < binaryArrays.length; i++) {
+            int[][] binaryArray = binaryArrays[i];
+            int[][] bipolarArray = new int[binaryArray.length][binaryArray[0].length];
+            for (int row = 0; row < binaryArray.length; row++) {
+                for (int col = 0; col < binaryArray[row].length; col++) {
+                    if (binaryArray[row][col] == 0) {
+                        bipolarArray[row][col] = -1;
+                    } else {
+                        bipolarArray[row][col] = 1;
+                    }
+                }
+            }
+            bipolarArrays[i] = bipolarArray;
+        }
+        return bipolarArrays;
     }
 }
