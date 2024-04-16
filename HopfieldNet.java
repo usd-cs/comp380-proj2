@@ -7,9 +7,7 @@ Description: Responsible for training and testing the Hopfield. Utilizes FileHan
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
 public class HopfieldNet {
     private final int THETA = 0;
@@ -32,41 +30,38 @@ public class HopfieldNet {
 
     }
     public void train(String trainingDataFile, String weightSettingsFile) throws FileNotFoundException {
-        // Passing file data into Hebb for training and initializing variables
+        // Grabbing file data afor training.
         FileHandler.InputData inputData;
         try {
             inputData = FileHandler.readInputData(FileHandler.trainPath, trainingDataFile);
         } catch (FileNotFoundException e) {
             System.out.println("Error: File Not Found");
-            e.printStackTrace(); // Print the stack trace for debugging
+            e.printStackTrace();
             return;
         }
         int numDimensions = inputData.numDimensions;
         int capacity = inputData.capacity;
-        int numRows = (int)Math.sqrt(numDimensions);
         int[][][] storedPatterns = inputData.dataSet;
         int[][][] storedPatternsBipolar = convertToBipolar(storedPatterns);
-        int [][] weights = new int[numRows][numRows];
+        int [][] weights = new int[numDimensions][numDimensions];
 
         // Hebb Net learning
         for (int[][] pattern : storedPatternsBipolar) {
-            int[][] transposedMatrix = transposeMatrix(pattern);
-            // Wi = S^T * S
-            int[][] multipliedMatrix = multiplyMatrices(transposedMatrix, pattern);
+            // flatten Matrix and take outer product to get numDim x numDim weights.
+            int [] flatPattern = flattenPattern(pattern);
+            int[][] productMatrix = outerProduct(flatPattern);
         
             for (int i = 0; i < weights.length; i++) {
                 for (int j = 0; j < weights[i].length; j++) {
-                    // Skip diagonal elements to prevent self-connections
+                    // skip diagonal for slef connections
                     if (i != j) {
-                        weights[i][j] += multipliedMatrix[i][j];
+                        weights[i][j] += productMatrix[i][j];
                     }
                 }
             }
         }
         
         Hopfield hopNet = new Hopfield(numDimensions, capacity, storedPatterns, weights);
-
-        // Save Parameters, patterns, and weights to file.
         FileHandler.saveWeights(weightSettingsFile, hopNet);
     }
 
@@ -148,6 +143,33 @@ public class HopfieldNet {
         return vector;
     }
 
+    public int[] flattenPattern(int[][] pattern) {
+        // Used to flatten pattern to a vector.
+        int numRows = pattern.length;
+        int numCols = pattern[0].length;
+        int[] flatPattern = new int[numRows * numCols];
+        
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                flatPattern[i * numCols + j] = pattern[i][j];
+            }
+        }
+        return flatPattern;
+    }
+
+    private int[][] outerProduct(int[] vector) {
+        // Just need outer product of matrices rather than transposing.
+        int length = vector.length;
+        int[][] product = new int[length][length];
+    
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                product[i][j] = vector[i] * vector[j];
+            }
+        }
+    
+        return product;
+    }
     // Function to generate an array of random indexes
     public static int[] genRandomIndArray(int size) {
         int[] indexes = new int[size];
