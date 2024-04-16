@@ -192,36 +192,6 @@ public class HopfieldNet {
         return -1;
     }
 
-    private int[][] transposeMatrix(int[][] matrix) {
-        // Once again, vectors might be faster
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-        int[][] transposed = new int[cols][rows];
-    
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                // Swap elements
-                transposed[j][i] = matrix[i][j];
-            }
-        }
-        return transposed;
-    }
-
-
-    private int[][] multiplyMatrices(int[][] matrixA, int[][] matrixB) {
-        int[][] result = new int[matrixA.length][matrixB[0].length];
-    
-        for (int i = 0; i < matrixA.length; i++) {
-            for (int j = 0; j < matrixB[0].length; j++) {
-                for (int k = 0; k < matrixA[0].length; k++) {
-                    result[i][j] += matrixA[i][k] * matrixB[k][j];
-                }
-            }
-        }
-    
-        return result;
-    }
-
     // Function to convert binary to bipolar
     public static int[][][] convertToBipolar(int[][][] binaryArrays) {
         int[][][] bipolarArrays = new int[binaryArrays.length][][];
