@@ -127,25 +127,32 @@ public final class FileHandler {
     
         int numDimensions = Integer.parseInt(scanner.nextLine().split(": ")[1]);
         int capacity = Integer.parseInt(scanner.nextLine().split(": ")[1]);
-        int numRows = (int)Math.sqrt(numDimensions);
-        int[][][] storedPatterns = new int[capacity][numRows][numRows];
-    
-        for (int i = 0; i < capacity; i++) {
-            scanner.nextLine(); // Skip the pattern header
-            for (int j = 0; j < numRows; j++) {
-                String[] line = scanner.nextLine().trim().split(" ");
-                for (int k = 0; k < numRows; k++) {
-                    storedPatterns[i][j][k] = Integer.parseInt(line[k]);
+
+        int[][][] storedPatterns = new int[capacity][][];
+
+        for (int i = 0; i < capacity; i++) { // for each image vector
+            scanner.nextLine(); // skip the title
+            ArrayList<int[]> imageVector = new ArrayList<>();
+
+            // Read each row until there's no more input
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if(line.equals("")) break; // skip the empty line
+                String[] lineArr = line.split(" ");
+                int[] row = new int[lineArr.length];
+                for (int k = 0; k < lineArr.length; k++) {
+                    row[k] = Integer.parseInt(lineArr[k]);
                 }
+                imageVector.add(row);
             }
-            scanner.nextLine();
+            storedPatterns[i] = imageVector.toArray(new int[imageVector.size()][]);
         }
     
         scanner.nextLine(); // Skip to the weight matrix header
-        int[][] weights = new int[numRows][numRows];
-        for (int i = 0; i < numRows; i++) {
+        int[][] weights = new int[numDimensions][numDimensions];
+        for (int i = 0; i < numDimensions; i++) {
             String[] line = scanner.nextLine().trim().split(" ");
-            for (int j = 0; j < numRows; j++) {
+            for (int j = 0; j < numDimensions; j++) {
                 weights[i][j] = Integer.parseInt(line[j]);
             }
         }
@@ -200,7 +207,7 @@ public final class FileHandler {
     private static void printMatrix(PrintWriter writer, int[][] matrix) {
         for (int[] row : matrix) {
             for (int cell : row) {
-                writer.print((cell == 1 ? "O" : " ") + " "); // Print O for 1 and space for 0
+                writer.print((cell == 1 ? "O" : " ")); // Print O for 1 and space for 0
             }
             writer.println();
         }

@@ -1,0 +1,10 @@
+Dimension size: 4
+Number of Stored Patterns: 1
+Pattern 1:
+1 1 1 0 
+
+Weight Matrix:
+0 1 1 -1 
+1 0 1 -1 
+1 1 0 -1 
+-1 -1 -1 0 
