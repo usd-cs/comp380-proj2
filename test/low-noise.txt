@@ -12,16 +12,16 @@ OO O O O O
 O OOO O O 
  O O O OOO
 
-OOO OO  OO
-OO  OOO OO
-OOO   OO  
-  OO  OOO 
+OO  OO  OO
+OO  OO  OO
+  OO  OO  
+  OO  OO  
 OO  OO OOO
 OO OOO  OO
- OOO  OO  
- OOO  OO  
+  OO  OO  
+  OO  OO  
 OO  OOO OO
-OO  OO OOO
+OO  OO  OO
 
 OOOOO     
 OOOOO     
