@@ -7,6 +7,7 @@ Description: This file is responsible for all File Handling Methods.
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -75,55 +76,45 @@ public final class FileHandler {
         return new InputData(numDimensions, capacity, dataSet);
     }
     
-    public static void saveWeights(String weightSettingsFile, HopfieldNet.Hopfield hopNet) {
-        try {
-            String path = weightPath + weightSettingsFile;
-            PrintWriter writer = new PrintWriter(path, "UTF-8");
-    
-            // Write basic properties
-            writer.println("Dimension size: " + hopNet.numDimensions);
-            writer.println("Number of Stored Patterns: " + hopNet.capacity);
-    
-            // Writing the 3D matrix of 2D patterns
-            for (int i = 0; i < hopNet.storedPatterns.length; i++) {
-                writer.println("Pattern " + (i + 1) + ":");
-                for (int j = 0; j < hopNet.storedPatterns[i].length; j++) {
-                    for (int k = 0; k < hopNet.storedPatterns[i][j].length; k++) {
-                        writer.print(hopNet.storedPatterns[i][j][k] + " ");
-                    }
-                    writer.println(); // Newline after each row
-                }
-                writer.println();
-            }
-    
-            // Writing the 2D Weight matrix
-            writer.println("Weight Matrix:");
-            for (int i = 0; i < hopNet.weights.length; i++) {
-                for (int j = 0; j < hopNet.weights[i].length; j++) {
-                    writer.print(hopNet.weights[i][j] + " ");
+    public static void saveWeights(String weightSettingsFile, HopfieldNet.Hopfield hopNet) throws FileNotFoundException, UnsupportedEncodingException {
+        String path = weightPath + weightSettingsFile;
+        PrintWriter writer = new PrintWriter(path, "UTF-8");
+
+        // Write basic properties
+        writer.println("Dimension size: " + hopNet.numDimensions);
+        writer.println("Number of Stored Patterns: " + hopNet.capacity);
+
+        // Writing the 3D matrix of 2D patterns
+        for (int i = 0; i < hopNet.storedPatterns.length; i++) {
+            writer.println("Pattern " + (i + 1) + ":");
+            for (int j = 0; j < hopNet.storedPatterns[i].length; j++) {
+                for (int k = 0; k < hopNet.storedPatterns[i][j].length; k++) {
+                    writer.print(hopNet.storedPatterns[i][j][k] + " ");
                 }
                 writer.println(); // Newline after each row
             }
-    
-            writer.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            writer.println();
         }
+
+        // Writing the 2D Weight matrix
+        writer.println("Weight Matrix:");
+        for (int i = 0; i < hopNet.weights.length; i++) {
+            for (int j = 0; j < hopNet.weights[i].length; j++) {
+                writer.print(hopNet.weights[i][j] + " ");
+            }
+            writer.println(); // Newline after each row
+        }
+
+        writer.close();
     }
 
         
 
 
-    public static HopfieldNet.Hopfield loadWeights(String weightSettingsFile) {
+    public static HopfieldNet.Hopfield loadWeights(String weightSettingsFile) throws FileNotFoundException {
         // set the stored patterns and weights and return the object
-        Scanner scanner;
-        try {
-            File file = new File(weightPath + weightSettingsFile);
-            scanner = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + weightSettingsFile);
-            return null; // Exit the method if file not found
-        }
+        File file = new File(weightPath + weightSettingsFile);
+        Scanner scanner = new Scanner(file);
     
         int numDimensions = Integer.parseInt(scanner.nextLine().split(": ")[1]);
         int capacity = Integer.parseInt(scanner.nextLine().split(": ")[1]);

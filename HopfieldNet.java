@@ -6,6 +6,7 @@ Description: Responsible for training and testing the Hopfield. Utilizes FileHan
 */
 
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -29,16 +30,9 @@ public class HopfieldNet {
                         this.weights = weights; }
 
     }
-    public void train(String trainingDataFile, String weightSettingsFile) throws FileNotFoundException {
+    public void train(String trainingDataFile, String weightSettingsFile) throws UnsupportedEncodingException, FileNotFoundException {
         // Grabbing file data afor training.
-        FileHandler.InputData inputData;
-        try {
-            inputData = FileHandler.readInputData(FileHandler.trainPath, trainingDataFile);
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: File Not Found");
-            e.printStackTrace();
-            return;
-        }
+        FileHandler.InputData inputData = FileHandler.readInputData(FileHandler.trainPath, trainingDataFile);
         int numDimensions = inputData.numDimensions;
         int capacity = inputData.capacity;
         int[][][] storedPatterns = inputData.dataSet;
@@ -66,16 +60,9 @@ public class HopfieldNet {
     }
 
     
-    public void test(String testingDataFile, String resultsFile, Hopfield weightsAndPatterns){
+    public void test(String testingDataFile, String resultsFile, Hopfield weightsAndPatterns) throws FileNotFoundException {
         // Read in data from the input testing file and Initialize values
-        FileHandler.InputData inputData;
-        try {
-            inputData = FileHandler.readInputData(FileHandler.testPath, testingDataFile);
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: File Not Found");
-            e.printStackTrace(); // Print the stack trace for debugging
-            return;
-        }
+        FileHandler.InputData inputData = FileHandler.readInputData(FileHandler.testPath, testingDataFile);
         if(inputData.numDimensions != weightsAndPatterns.numDimensions) { // Check the dimensions match
             System.out.println("Test Data dimensions does not match weights");
             return;
