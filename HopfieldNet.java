@@ -104,7 +104,7 @@ public class HopfieldNet {
                 if(matchedPattern == -1 && Arrays.equals(pattern,y)) {
                     matchedPattern = -2;
                 } else {
-                    pattern = y;
+                    pattern = Arrays.copyOf(y, y.length);
                 }
             } while (matchedPattern == -1);
             // Found a match, put in the results
