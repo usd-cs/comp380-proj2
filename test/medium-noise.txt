@@ -1,51 +1,51 @@
 100 	(dimension of the image vectors)
 5 	(number of the image vectors)
 
-O O O OOO
-          
-O O O OOO
+O O O OOO 
+ O OOO O O
+O O OOOOO 
 OO O O O O
-O OOO O O
+O OOOOO O 
  O O OOO O
-OOO O O O
-OO O O O O
-          
+OOO O O O 
+OO O O OOO
+O OOO O O 
  O O O OOO
 
+OO  OO  OO
 OOO OO  OO
-OO      OO
-OOO   OO
-  OO     
-OO  OO OOO
+  OO  OO  
+  OO  OO  
+OOO OO OOO
 OO OOO  OO
-      OO
- OOO  OO
-OO      OO
-OO  OO    
+  OO  OO  
+  OO  OOO 
+OO  OOO OO
+OO  OO  OO
 
-OOOOO
-     
+OOOOO     
+OO        
 OOOOOOOOOO
-OOOOO
-OOOOO
+OOOOO     
+OOOOO     
      OOOOO
      OOOOO
-OOOOO
+OOOOO     
      OOOOO
      OOOOO
 
    O  O  O
- O     O
-          
+ O     O  
+    O     
 O  O  O   
-    O  O
-  O     O
+    O  O  
+  O     O 
 O  O  O  O
           
-     O  O
+  O  O  O 
 O  O     O
 
-O O OOOOOO
+O O OOOO O
 O     O  O
 O OOO OO O
 O O O  O O

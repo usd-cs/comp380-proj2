@@ -1,0 +1,89 @@
+Test Results:
+Input testing image:
+O O O OOO 
+          
+O O O OOO 
+OO O O O O
+O OOO O O 
+ O O OOO O
+    O O O 
+OO O O O O
+          
+ O O O OOO
+The associated stored image:
+No matching stored pattern found.
+
+Input testing image:
+OOO OO  OO
+OO      OO
+OOO   OO  
+  OO      
+OO  OO OOO
+OO OOO  OO
+      OO  
+ OOO  OO  
+OO      OO
+OO  OO    
+The associated stored image:
+No matching stored pattern found.
+
+Input testing image:
+OOOOO     
+          
+OOOOOOOOOO
+OOOOOOO   
+OOOOO     
+     OOOOO
+     OO  O
+OOOOO     
+   OOOOOOO
+     OOOOO
+The associated stored image:
+No matching stored pattern found.
+
+Input testing image:
+   O  O  O
+ O     O  
+          
+O  O  O   
+    O  O  
+  O     O 
+O  O  O  O
+          
+     O  O 
+O  O     O
+The associated stored image:
+O  O  O  O
+ O  O  O  
+  O  O  O 
+O  O  O  O
+ O  O  O  
+  O  O  O 
+O  O  O  O
+ O  O  O  
+  O  O  O 
+O  O  O  O
+
+Input testing image:
+O O OO O O
+      O  O
+O OOO OO O
+O O O  O O
+  O OO   O
+O O OO O  
+  O      O
+O O O OO O
+   O     O
+OOOOOOOOOO
+The associated stored image:
+OOOOOOOOOO
+O        O
+O OOOOOO O
+O O    O O
+O O OO O O
+O O OO O O
+O O    O O
+O OOOOOO O
+O        O
+OOOOOOOOOO
+

@@ -1,0 +1,116 @@
+Test Results:
+Input testing image:
+O O O OOO 
+ O OOO O O
+O O OOOOO 
+OO O O O O
+O OOOOO O 
+ O O OOO O
+OOO O O O 
+OO O O OOO
+O OOO O O 
+ O O O OOO
+The associated stored image:
+O O O O O 
+ O O O O O
+O O O O O 
+ O O O O O
+O O O O O 
+ O O O O O
+O O O O O 
+ O O O O O
+O O O O O 
+ O O O O O
+
+Input testing image:
+OO  OO  OO
+OOO OO  OO
+  OO  OO  
+  OO  OO  
+OOO OO OOO
+OO OOO  OO
+  OO  OO  
+  OO  OOO 
+OO  OOO OO
+OO  OO  OO
+The associated stored image:
+OO  OO  OO
+OO  OO  OO
+  OO  OO  
+  OO  OO  
+OO  OO  OO
+OO  OO  OO
+  OO  OO  
+  OO  OO  
+OO  OO  OO
+OO  OO  OO
+
+Input testing image:
+OOOOO     
+OO        
+OOOOOOOOOO
+OOOOO     
+OOOOO     
+     OOOOO
+     OOOOO
+OOOOO     
+     OOOOO
+     OOOOO
+The associated stored image:
+OOOOO     
+OOOOO     
+OOOOO     
+OOOOO     
+OOOOO     
+     OOOOO
+     OOOOO
+     OOOOO
+     OOOOO
+     OOOOO
+
+Input testing image:
+   O  O  O
+ O     O  
+    O     
+O  O  O   
+    O  O  
+  O     O 
+O  O  O  O
+          
+  O  O  O 
+O  O     O
+The associated stored image:
+O  O  O  O
+ O  O  O  
+  O  O  O 
+O  O  O  O
+ O  O  O  
+  O  O  O 
+O  O  O  O
+ O  O  O  
+  O  O  O 
+O  O  O  O
+
+Input testing image:
+O O OOOO O
+O     O  O
+O OOO OO O
+O O O  O O
+  O OO O O
+O O OO O  
+O O    O O
+O OOO OO O
+   O     O
+OOOOOOOOOO
+The associated stored image:
+OOOOOOOOOO
+O        O
+O OOOOOO O
+O O    O O
+O O OO O O
+O O OO O O
+O O    O O
+O OOOOOO O
+O        O
+OOOOOOOOOO
+

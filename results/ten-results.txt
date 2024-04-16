@@ -1,17 +1,19 @@
-100   (dimension of the image vectors)
-10   (number of the image vectors)
+Test Results:
+Input testing image:
+O O O O O 
+ O O O O O
+O O O O O 
+ O O O O O
+O O O O O 
+ O O O O O
+O O O O O 
+ O O O O O
+O O O O O 
+ O O O O O
+The associated stored image:
+No matching stored pattern found.
 
-O O O O O 
- O O O O O
-O O O O O 
- O O O O O
-O O O O O 
- O O O O O
-O O O O O 
- O O O O O
-O O O O O 
- O O O O O
-
+Input testing image:
 OO  OO  OO
 OO  OO  OO
   OO  OO  
@@ -22,7 +24,10 @@ OO  OO  OO
   OO  OO  
 OO  OO  OO
 OO  OO  OO
+The associated stored image:
+No matching stored pattern found.
 
+Input testing image:
 OOOOO     
 OOOOO     
 OOOOO     
@@ -33,7 +38,10 @@ OOOOO
      OOOOO
      OOOOO
      OOOOO
+The associated stored image:
+No matching stored pattern found.
 
+Input testing image:
 O  O  O  O
  O  O  O  
   O  O  O 
@@ -44,7 +52,10 @@ O  O  O  O
  O  O  O  
   O  O  O 
 O  O  O  O
+The associated stored image:
+No matching stored pattern found.
 
+Input testing image:
 OOOOOOOOOO
 O        O
 O OOOOOO O
@@ -55,7 +66,10 @@ O O    O O
 O OOOOOO O
 O        O
 OOOOOOOOOO
+The associated stored image:
+No matching stored pattern found.
 
+Input testing image:
           
           
           
@@ -66,7 +80,10 @@ O O O O O
  O O O O O
 O O O O O 
  O O O O O
+The associated stored image:
+No matching stored pattern found.
 
+Input testing image:
 OOO O    O
  O  OOO OO
   O O OO O
@@ -77,7 +94,10 @@ O OO  O  O
    O OOO  
 OO OOO  O 
  O  O  OOO
+The associated stored image:
+No matching stored pattern found.
 
+Input testing image:
 OOOOO     
 O   O OOO 
 O   O OOO 
@@ -88,7 +108,21 @@ OOOOO
  OOO O   O
  OOO O   O
      OOOOO
+The associated stored image:
+No matching stored pattern found.
 
+Input testing image:
+O  OOOO  O
+OO  OOOO  
+OOO  OOOO 
+OOOO  OOOO
+ OOOO  OOO
+  OOOO  OO
+O  OOOO  O
+OO  OOOO  
+OOO  OOOO 
+OOOO  OOOO
+The associated stored image:
 O  OOOO  O
 OO  OOOO  
 OOO  OOOO 
@@ -100,6 +134,7 @@ OO  OOOO
 OOO  OOOO 
 OOOO  OOOO
 
+Input testing image:
 OOOOOOOOOO
 O        O
 O        O
@@ -110,3 +145,6 @@ O        O
 O        O
 O        O
 OOOOOOOOOO
+The associated stored image:
+No matching stored pattern found.
+
