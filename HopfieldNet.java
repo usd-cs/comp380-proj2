@@ -87,36 +87,39 @@ public class HopfieldNet {
         }
         int[][][] storedPatterns = weightsAndPatterns.storedPatterns;
         int[][] weights = weightsAndPatterns.weights;
-        int numRows = (int)Math.sqrt(inputData.numDimensions);
+
+        // Convert input patterns to vectors
+        int[][] inputVectors = new int[inputData.capacity][inputData.numDimensions];
+        for(int i = 0; i<inputData.dataSet.length; i++) {
+            inputVectors[i] = toVector(inputData.dataSet[i]);
+        }
 
         // Application of the Hopfield net
-        int[] results = new int[inputData.dataSet.length];
-        for (int k = 0; k < inputData.dataSet.length; k++) {
-            int[][] pattern = inputData.dataSet[k]; // For every pattern in dataset
+        int[] results = new int[inputVectors.length];
+        for (int k = 0; k < inputVectors.length; k++) { // For every inputVector in dataset
+            int[] pattern = inputVectors[k];
             int matchedPattern = -1;
-            do {
-                int[][] y = deepCopy(pattern);
-                for (int i = 0; i < pattern.length; i++) { // For every row in pattern
-                    int ySize = numRows;
-                    // Choose random unit
-                    int[] randomInds = genRandomIndArray(ySize);
-                    for(int unitIndex : randomInds) { // For every index in a randomized list
-                        // Calculate y_in for the unit
-                        int sum = 0;
-                        for (int j = 0; j < numRows; j++) {
-                            sum += (weights[j][unitIndex] * y[i][j]);
-                        }
-                        int yin = pattern[i][unitIndex] + sum; // Add x of i and the sum
-                        // Activation function
-                        if (yin > THETA) {
-                            y[i][unitIndex] = 1;
-                        } else {
-                            y[i][unitIndex] = 0;
-                        }
+            do { // try to converge
+                int[] y = Arrays.copyOf(pattern, pattern.length);
+                // Choose random unit
+                int ySize = y.length;
+                int[] randomInds = genRandomIndArray(ySize);
+                for(int unitIndex : randomInds) { // For every index in a randomized list
+                    // Calculate y_in for the unit
+                    int sum = 0;
+                    for (int j = 0; j < ySize; j++) {
+                        sum += (weights[j][unitIndex] * y[j]);
+                    }
+                    int yin = pattern[unitIndex] + sum; // Add x of i and the sum
+                    // Activation function
+                    if (yin > THETA) {
+                        y[unitIndex] = 1;
+                    } else {
+                        y[unitIndex] = 0;
                     }
                 }
                 matchedPattern = checkForConvergence(storedPatterns, y);
-                if(matchedPattern == -1 && Arrays.deepEquals(pattern,y)) {
+                if(matchedPattern == -1 && Arrays.equals(pattern,y)) {
                     matchedPattern = -2;
                 } else {
                     pattern = y;
@@ -129,23 +132,20 @@ public class HopfieldNet {
         FileHandler.saveResults(resultsFile,weightsAndPatterns,data,results);
     }
 
-    /*
-     * Deep copies a 2d arrays
-     */
-    private static int[][] deepCopy(int[][] array) {
-        if (array == null) {
-            return null;
-        }
+    // Function to convert a 2D integer matrix to a 1D integer array
+    public static int[] toVector(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int[] vector = new int[rows * cols];
+        int index = 0;
 
-        int[][] newArray = new int[array.length][];
-        for (int i = 0; i < array.length; i++) {
-            // Make a copy of each sub-array
-            newArray[i] = new int[array[i].length];
-            for (int j = 0; j < array[i].length; j++) {
-                newArray[i][j] = array[i][j];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                vector[index++] = matrix[i][j];
             }
         }
-        return newArray;
+
+        return vector;
     }
 
     // Function to generate an array of random indexes
@@ -174,9 +174,9 @@ public class HopfieldNet {
      * This function takes in the stored patterns and a pattern to check.
      * It returns -1 if there is no match or the index of the match.
      */
-    private int checkForConvergence(int[][][] storedPatterns, int[][] checkPattern) {
+    private int checkForConvergence(int[][][] storedPatterns, int[] checkVector) {
         for (int i = 0; i< storedPatterns.length; i++) {
-            if(Arrays.deepEquals(storedPatterns[i], checkPattern)) {
+            if(Arrays.equals(toVector(storedPatterns[i]), checkVector)) {
                 return i;
             }
         }

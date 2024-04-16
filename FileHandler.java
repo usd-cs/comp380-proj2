@@ -7,6 +7,7 @@ Description: This file is responsible for all File Handling Methods.
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.PrintWriter;
@@ -42,20 +43,20 @@ public final class FileHandler {
         sc.nextLine(); // skip the text in parentheses after the int
         int capacity = sc.nextInt();
         sc.nextLine(); // skip the text in parentheses after the int
-        int numRows = (int)Math.sqrt(numDimensions);
     
-        int[][][] dataSet = new int[capacity][numRows][numRows];
-    
+        int[][][] dataSet = new int[capacity][][];
+
+        sc.nextLine(); // skip the empty line
         for (int i = 0; i < capacity; i++) { // for each image vector
-            sc.nextLine(); // skip the empty line
-            int[][] imageVector = new int[numRows][numRows];
-    
-            for (int j = 0; j < numRows; j++) { // for each row in the image vector
-                if (!sc.hasNextLine()) break;
+
+            ArrayList<int[]> imageVector = new ArrayList<>();
+
+            // Read each row until there's no more input
+            while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                int[] row = new int[numRows];
-                char[] cleanedArr = Arrays.copyOfRange(line.toCharArray(), 0, numRows);
-                
+                if(line.equals("")) break; // skip the empty line
+                char[] cleanedArr = line.toCharArray();
+                int[] row = new int[cleanedArr.length];
                 // Using binary since Hebb net training
                 int k = 0; // Index for each cell in the row
                 for (char cell : cleanedArr) {
@@ -65,9 +66,9 @@ public final class FileHandler {
                         row[k++] = 0;
                     }
                 }
-                imageVector[j] = row;
+                imageVector.add(row);
             }
-            dataSet[i] = imageVector;
+            dataSet[i] = imageVector.toArray(new int[imageVector.size()][]);
         }
     
         sc.close();

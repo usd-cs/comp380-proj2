@@ -1,0 +1,4 @@
+4 	(dimension of the image vectors)
+1 	(number of the image vectors)
+
+OOO 
